@@ -85,6 +85,17 @@ var map;
 // cache Info window in a variable
 var window = new google.maps.InfoWindow({});
 
+//Create Instance of a map from the Google maps api
+//Grab the reference to the "map" id to display map
+//Set the map options object properties 
+function initMap() {
+    map = new google.maps.Map(document.getElementById("map"), {
+        center: {lat: 40.440624, lng: -79.995888},
+        zoom: 8,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+};
+
 // tells the view model what to do when a change occurs
 function gymLocation(value) {
     this.name = ko.observable(value.name);
@@ -130,9 +141,11 @@ function ViewModel() {
     
 };
 
- $(document).ready(function() {
-  ko.applyBindings(ViewModel());
-} 
+
+$(document).ready(function() {
+    ko.applyBindings(ViewModel());    
+});
+
 
 
 
