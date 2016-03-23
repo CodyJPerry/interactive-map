@@ -105,7 +105,7 @@ function gymLocation(value) {
 function ViewModel() {
     
     var self = this;
-    this.markers = [];
+    self.markers = [];
 
     
     //Copies the values of initialLocations and stores them in sortedLocations(); observableArray
@@ -124,25 +124,27 @@ function ViewModel() {
     
     //Map info windows to each item in the markers array
     self.markers.map(function(info) {
-        info.addListener('click', function() {
-            new google.maps.InfoWindow({
+            var window = new google.maps.InfoWindow({
                 content: content,
                 position: info.latlng,
                 map: map,
                 title: info.name
             });
+        //Add click event to each marker to open info window
+        info.addListener('click', function() {
+            for (var i = 0; i < self.markers.length; i++) {
+                window.open(map, marker)
+            }
         });
-       // info.addListener('click', function() {
-        });
-    });
-    
-    
+     });
 };
-
+    
 
 $(document).ready(function() {
-    ko.applyBindings(ViewModel());    
+    ko.applyBindings(ViewModel);
 });
+   
+
 
 
 
