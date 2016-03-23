@@ -75,7 +75,7 @@ var initialLocations = [
 ];
 
 //String to display in info window
-var content = "this is a test";
+var content = "This is working!!!";
 
 //Declare Map variable and markers array
 var map;
@@ -118,7 +118,7 @@ function ViewModel() {
             map: map,
             title: location.name
         });
-        
+        //Pushes each marker into the markers array
         this.markers.push(marker);
     });
     
@@ -133,7 +133,7 @@ function ViewModel() {
         //Add click event to each marker to open info window
         info.addListener('click', function() {
             for (var i = 0; i < self.markers.length; i++) {
-                window.open(map, marker)
+                window.open(map, markers[i])
             }
         });
      });
