@@ -96,8 +96,7 @@ function gymLocation(value) {
     this.name = ko.observable(value.name);
     this.address = ko.observable(value.address);
     this.description = ko.observable(value.description);
-    this.lat = ko.observable(value.lat);
-    this.lng = ko.observable(value.lng);
+    this.latlng = ko.observable(value.lat);
 };
 
 
@@ -132,9 +131,7 @@ function ViewModel() {
             });
         //Add click event to each marker to open info window
         info.addListener('click', function() {
-            for (var i = 0; i < self.markers.length; i++) {
-                window.open(map, markers[i])
-            }
+                window.open(map, this.markers)
         });
      });
 };
