@@ -75,15 +75,10 @@ var initialLocations = [
 ];
 
 //String to display in info window
-var content;
+var content = "this is a test";
 
 //Declare Map variable and markers array
 var map;
-
-
-
-// cache Info window in a variable
-var window = new google.maps.InfoWindow({});
 
 //Create Instance of a map from the Google maps api
 //Grab the reference to the "map" id to display map
@@ -91,7 +86,7 @@ var window = new google.maps.InfoWindow({});
 function initMap() {
     map = new google.maps.Map(document.getElementById("map"), {
         center: {lat: 40.440624, lng: -79.995888},
-        zoom: 8,
+        zoom: 13,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 };
@@ -118,23 +113,26 @@ function ViewModel() {
     
     //Adds new markers at each location in the initialLocations Array
     self.sortedLocations().forEach(function(location) {
-        var marker = new google.map.Marker({
+        var marker = new google.maps.Marker({
             position: location.latlng,
             map: map,
             title: location.name
         });
         
-        markers.push(marker);
+        this.markers.push(marker);
     });
     
     //Map info windows to each item in the markers array
     self.markers.map(function(info) {
         info.addListener('click', function() {
             new google.maps.InfoWindow({
+                content: content,
                 position: info.latlng,
                 map: map,
                 title: info.name
             });
+        });
+       // info.addListener('click', function() {
         });
     });
     
