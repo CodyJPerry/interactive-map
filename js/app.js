@@ -126,23 +126,27 @@ function ViewModel() {
             position: location.latlng,
             map: map,
             title: location.name,
+            animation: google.maps.Animation.DROP
         });
+        
         //Pushes each marker into the markers array
         this.markers.push(marker);
     });
     
     //Map info windows to each item in the markers array
     self.markers.map(function(info) {
-            var window = new google.maps.InfoWindow({
+            var infoWindow = new google.maps.InfoWindow({
                 content: content
             });
         //Add click event to each marker to open info window
         info.addListener('click', function() {
-                window.open(map, this),
-                this.setTimeout(function() {
-                    this.setAnimation(google.maps.Animation.BOUNCE)
-                }, 3000);
+                infoWindow.open(map, this),
+                info.setAnimation(google.maps.Animation.BOUNCE) //Markers will bounce when clicked
+                setTimeout(function() {
+                    info.setAnimation(null)
+                }, 2000); //Change value to null after 2 seconds and stop markers from bouncing
         });
+        
      });
 };
     
