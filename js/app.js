@@ -134,11 +134,14 @@ function ViewModel() {
     //Map info windows to each item in the markers array
     self.markers.map(function(info) {
             var window = new google.maps.InfoWindow({
-                content: content,
+                content: content
             });
         //Add click event to each marker to open info window
         info.addListener('click', function() {
-                window.open(map, this)
+                window.open(map, this),
+                this.setTimeout(function() {
+                    this.setAnimation(google.maps.Animation.BOUNCE)
+                }, 3000);
         });
      });
 };
