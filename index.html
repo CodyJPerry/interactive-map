@@ -16,7 +16,9 @@
             <div class="col-md-12"><input type="text" placeholder="Location" size="35"/></div>
             <div class="col-md-4">
             <!--list view-->
-                <div></div>   
+                <div class="list-view" data-bind="foreach: sortedLocations">
+                    <p data-bind="text: $data.name"</p><!--data-bind="click: listViewClick"-->
+                </div>   
             </div>
         </div>
         <div id="map" class="col-md-8"></div>

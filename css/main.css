@@ -2,3 +2,19 @@
     height: 1000px;  
     width: 100%;
 }
+
+.list-view {
+    position: absolute;
+    top: 100px;
+    z-index: 1;
+    background: rgba(23,50,78,.5);
+    color: white;
+}
+
+.list-view p {
+    font-size: 1.4em;
+    font-weight: bold;
+    padding: 3px;
+    margin: 10px; 15px;
+    
+}

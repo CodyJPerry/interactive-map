@@ -118,7 +118,7 @@ function ViewModel() {
 
     
     //Copies the values of initialLocations and stores them in sortedLocations(); observableArray
-    self.sortedLocations = ko.observableArray(initialLocations.slice());
+    self.sortedLocations = ko.observableArray(initialLocations);
     
     //Adds new markers at each location in the initialLocations Array
     self.sortedLocations().forEach(function(location) {
@@ -148,11 +148,22 @@ function ViewModel() {
         });
         
      });
+    
+    //Click on item in list view
+    function listViewClick() {
+        self.sortedLocations().forEach(function(listview) {
+            listview.addEventListener('click', function() {
+                console.log("This is working!");
+            });
+        });
+    };
+    
+    
 };
     
 
 $(document).ready(function() {
-    ko.applyBindings(ViewModel);
+    ko.applyBindings(ViewModel());
 });
    
 
