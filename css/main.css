@@ -14,12 +14,9 @@
 .list-view p {
     font-size: 1.4em;
     font-weight: bold;
-    padding: 3px;
-    
 }
 
 .list-view p:hover {
     background: rgba(23,50,78,.7);
     cursor: pointer;
-    
 }

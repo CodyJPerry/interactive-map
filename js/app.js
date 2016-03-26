@@ -92,6 +92,8 @@ var map;
 
 var infoWindow;
 
+var marker;
+
 //Create Instance of a map from the Google maps api
 //Grab the reference to the "map" id to display map
 //Set the map options object properties 
@@ -124,7 +126,7 @@ function ViewModel() {
     
     //Adds new markers at each location in the initialLocations Array
     self.sortedLocations().forEach(function(location) {
-        var marker = new google.maps.Marker({
+        marker = new google.maps.Marker({
             position: location.latlng,
             map: map,
             title: location.name,
@@ -154,8 +156,9 @@ function ViewModel() {
     //Click on item in list view
     self.listViewClick = function(list) {
        if (this.name) {
-           map.setZoom(16);
+           map.setZoom(15);
            map.setCenter(this.latlng);
+           marker.setAnimation(google.maps.Animation.BOUNCE);
        } 
         
     };
