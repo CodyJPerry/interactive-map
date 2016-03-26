@@ -90,6 +90,8 @@ var content = "This is working!!!";
 //Declare Map variable and markers array
 var map;
 
+var infoWindow;
+
 //Create Instance of a map from the Google maps api
 //Grab the reference to the "map" id to display map
 //Set the map options object properties 
@@ -135,7 +137,7 @@ function ViewModel() {
     
     //Map info windows to each item in the markers array
     self.markers.map(function(info) {
-            var infoWindow = new google.maps.InfoWindow({
+            infoWindow = new google.maps.InfoWindow({
                 content: content
             });
         //Add click event to each marker to open info window
@@ -150,15 +152,14 @@ function ViewModel() {
      });
     
     //Click on item in list view
-    function listViewClick() {
-        self.sortedLocations().forEach(function(listview) {
-            listview.addEventListener('click', function() {
-                console.log("This is working!");
-            });
-        });
+    self.listViewClick = function(list) {
+       if (this.name) {
+           map.setZoom(16);
+           map.setCenter(this.latlng);
+       } 
+        
     };
-    
-    
+     
 };
     
 
