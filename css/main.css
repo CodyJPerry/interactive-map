@@ -1,5 +1,5 @@
  #map {
-    height: 1000px;  
+    height: 800px;;  
     width: 100%;
 }
 
@@ -14,6 +14,7 @@
 .list-view p {
     font-size: 1.4em;
     font-weight: bold;
+    margin: 10px 5px;
 }
 
 .list-view p:hover {

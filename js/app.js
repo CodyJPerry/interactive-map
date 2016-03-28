@@ -101,7 +101,11 @@ function initMap() {
     map = new google.maps.Map(document.getElementById("map"), {
         center: {lat: 40.440624, lng: -79.995888},
         zoom: 13,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeControl: true,
+        mapTypeControlOptions: {
+            style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+        }
     });
 };
 
@@ -130,6 +134,7 @@ function ViewModel() {
             position: location.latlng,
             map: map,
             title: location.name,
+            icon: 'images/gym.svg',
             animation: google.maps.Animation.DROP
         });
         
@@ -157,11 +162,14 @@ function ViewModel() {
     self.listViewClick = function(list) {
        if (this.name) {
            map.setZoom(15);
-           map.setCenter(this.latlng);
-           marker.setAnimation(google.maps.Animation.BOUNCE);
+           map.panTo(this.latlng);
+           list.setAnimation(google.maps.Animation.BOUNCE);
        } 
         
     };
+    
+    // Search function
+    //self.query = function() {};
      
 };
     
