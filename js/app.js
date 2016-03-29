@@ -163,9 +163,14 @@ function ViewModel() {
        if (this.name) {
            map.setZoom(15);
            map.panTo(this.latlng);
-           list.setAnimation(google.maps.Animation.BOUNCE);
+           
+           for (var i = 0; i < markers.length; i++) {
+                 var listViewClick = markers[i];
+                
+                 
+        }
+           listViewClick.setAnimation(google.maps.Animation.BOUNCE);
        } 
-        
     };
     
     // Search function
