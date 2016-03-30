@@ -159,17 +159,13 @@ function ViewModel() {
      });
     
     //Click on item in list view
-    self.listViewClick = function(list) {
+    self.listViewClick = function(gym) {
        if (this.name) {
            map.setZoom(15);
            map.panTo(this.latlng);
+           console.log(gym.name);
+           gym.setAnimation(google.maps.Animation.BOUNCE);
            
-           for (var i = 0; i < markers.length; i++) {
-                 var listViewClick = markers[i];
-                
-                 
-        }
-           listViewClick.setAnimation(google.maps.Animation.BOUNCE);
        } 
     };
     
