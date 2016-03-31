@@ -138,6 +138,8 @@ function ViewModel() {
             animation: google.maps.Animation.DROP
         });
         
+        location.marker = marker;
+        
         //Pushes each marker into the markers array
         this.markers.push(marker);
     });
@@ -161,19 +163,18 @@ function ViewModel() {
     //Click on item in list view
     self.listViewClick = function(gym) {
        if (this.name) {
-           map.setZoom(15);
-           map.panTo(this.latlng);
-           for (var i = 0; i < markers.length; i++) {
-                markers[i].setAnimation(google.maps.Animation.BOUNCE);
-           }
-          /* markers.forEach(function(gymLocation, index, array) {
-               console.log(gymLocation.title);
-           });*/
+           map.setZoom(15); //Zoom map view
+           map.panTo(this.latlng); // Pan to correct marker when list view item is clicked
+           gym.marker.setAnimation(google.maps.Animation.BOUNCE); // Bounce marker when list view item is clicked
+           infoWindow.open(map, gym.marker); // Open info window on correct marker when list item is clicked
        } 
+        setTimeout(function() { 
+            gym.marker.setAnimation(null); // End animation on marker after 2 seconds
+        }, 2000);
     };
     
     // Search function
-    //self.query = function() {};
+    self.query = ko.observable('');
      
 };
     
