@@ -163,9 +163,12 @@ function ViewModel() {
        if (this.name) {
            map.setZoom(15);
            map.panTo(this.latlng);
-           console.log(gym.name);
-           gym.setAnimation(google.maps.Animation.BOUNCE);
-           
+           for (var i = 0; i < markers.length; i++) {
+                markers[i].setAnimation(google.maps.Animation.BOUNCE);
+           }
+          /* markers.forEach(function(gymLocation, index, array) {
+               console.log(gymLocation.title);
+           });*/
        } 
     };
     
