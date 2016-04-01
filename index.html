@@ -13,10 +13,11 @@
     </head>
     <body>
         <div class="container">
-            <div class="col-md-12"><input type="search" placeholder="Search Location" size="35" data-bind="textInput: search, valueUpdate: 'keyup'"/></div>
+            <div class="col-md-12">
+                <input type="search" placeholder="Search Location" size="35" data-bind="textInput: query, valueUpdate: 'keyup'"/></div>
             <div class="col-md-4">
             <!--list view-->
-                <div class="list-view" data-bind="foreach: sortedLocations">
+                <div class="list-view" data-bind="foreach: search">
                     <p class="list-item" data-bind="text: $data.name, click: listViewClick"></p>
                 </div>   
             </div>

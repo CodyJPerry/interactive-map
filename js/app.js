@@ -139,7 +139,6 @@ function ViewModel() {
         });
         
         location.marker = marker;
-        location.search = location;
 
         //Pushes each marker into the markers array
         this.markers.push(marker);
@@ -174,13 +173,12 @@ function ViewModel() {
         }, 2000);
     };
     
-    // Search function
+    // Stores user input
     self.query = ko.observable('');
     
     //Filter through observableArray and filter results using knockouts utils.arrayFilter();
     self.search = ko.computed(function() {
         return ko.utils.arrayFilter(self.sortedLocations(), function(listResult) {
-                console.log(listResult.name);
             return listResult.name.toLowerCase().indexOf(self.query().toLowerCase()) >= 0;
         });
     });
