@@ -167,6 +167,7 @@ function ViewModel() {
            map.panTo(this.latlng); // Pan to correct marker when list view item is clicked
            gym.marker.setAnimation(google.maps.Animation.BOUNCE); // Bounce marker when list view item is clicked
            infoWindow.open(map, gym.marker); // Open info window on correct marker when list item is clicked
+           self.query(this.name);
        } 
         setTimeout(function() { 
             gym.marker.setAnimation(null); // End animation on marker after 2 seconds
@@ -182,8 +183,9 @@ function ViewModel() {
             //Match search with items in sortedLocations() observable array
             var match = listResult.name.toLowerCase().indexOf(self.query().toLowerCase()) >= 0;
 
-            if (match === true) { //If result is true, show correct marker based off users search
+            if (match) { //If result is true, show correct marker based off users search
                 listResult.marker.setVisible(true);
+                
             } else {
                 listResult.marker.setVisible(false); //hide markers that do not show users search results
             }
@@ -191,7 +193,22 @@ function ViewModel() {
             return match;
            
         });
+        map.setZoom(13);
     });
+    
+    
+    //Click event on map to zoom out to original poistion
+    map.addListener('click', function(event) {
+        infoWindow.close(); //Close all info windows
+        infoWindow.setContent(null);
+        map.setZoom(13);
+        map.panTo({ lat: 40.440624, lng: -79.995888}); //map center location
+        self.query('');
+    });
+    
+    
+    
+    
     
     
      
