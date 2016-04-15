@@ -254,7 +254,7 @@ function ViewModel() {
         var llLat;
         var llLng;
         var gymContent;
-        var gymPlace = ko.observableArray();
+        self.gymPlace = ko.observableArray();
         
         //Build correct URL for API request to Foursquare
         self.sortedLocations().forEach(function(req) {
@@ -270,19 +270,22 @@ function ViewModel() {
                 var resp = response.response.groups[0].items[0].venue;
         
                 //Build infoWidow content string with data from API Request
-                    gymContent = infoWindow.setContent(resp.name + '<br>' + req.phone + '<br>' + resp.location.address + '<br>' + resp.location.city + ', ' + resp.location.state + ' ' + resp.location.postalCode + '<br>'  + '<a href="' + req.website + '">' + req.website + '</a>' + '<br>' + '<a href="' + req.twitterLink + '">' + '@' + req.twitter + '</a>');
+                    gymContent = resp.name + '<br>' + req.phone + '<br>' + resp.location.address + '<br>' + resp.location.city + ', ' + resp.location.state + ' ' + resp.location.postalCode + '<br>'  + '<a href="' + req.website + '">' + req.website + '</a>' + '<br>' + '<a href="' + req.twitterLink + '">' + '@' + req.twitter + '</a>';
                 
-                gymPlace().push(gymContent);
-                console.log(gymPlace()); 
+                self.gymPlace().push(gymContent);
+                
+                self.gymPlace().forEach(function(postRequest) {
+                    infoWindow.setContent(postRequest.gymContent);
+                    
+                });
+                
+                
+                console.log(self.gymPlace());
             } 
         });
             
 
             
-    });
-    
-    marker.addListener('click', function() {
-        gymContent;
     });
     
      
