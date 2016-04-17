@@ -134,6 +134,10 @@ var infoWindow;
 
 var marker;
 
+
+
+
+
 //Create Instance of a map from the Google maps api
 //Grab the reference to the "map" id to display map
 //Set the map options object properties 
@@ -168,6 +172,42 @@ function ViewModel() {
     //Copies the values of initialLocations and stores them in sortedLocations(); observableArray
     self.sortedLocations = ko.observableArray(initialLocations);
     
+    
+    
+    //FourSquare API Request | declare reference properties
+        var clientID = '54I1UHM3AGCPB45VNROLAC23DEARBPZ3R4C0Y5QX3BDL30SV';
+        var clientSecret = 'SCQYO3CFBWVOHBYK4HUMBBXF3VUIF5ETZPD01BXTGBO2YW00';
+        var fqVersion = '20130815';
+        var fourSqUrl;
+        var llLat;
+        var llLng;
+        var gymContent;
+        self.gymPlace = ko.observableArray();
+        
+        //Build correct URL for API request to Foursquare
+        self.sortedLocations().forEach(function(req) {
+            llLat = req.latlng.lat;
+            llLng = req.latlng.lng;
+            fourSqUrl = 'https://api.foursquare.com/v2/venues/explore' + '?client_id=' + clientID + '&client_secret=' + clientSecret + '&v=' + fqVersion + '&ll=' + llLat + ',' + llLng + '&query=' + req.query + '&limit=50';
+            
+            //Make ajax call to Foursquare API to get requested Data
+            $.ajax({
+            url: fourSqUrl,
+            datatype: "jsonp",
+            success: function(response) {
+                var resp = response.response.groups[0].items[0].venue;
+        
+                //Build infoWidow content string with data from API Request
+                    gymContent = resp.name + '<br>' + req.phone + '<br>' + resp.location.address + '<br>' + resp.location.city + ', ' + resp.location.state + ' ' + resp.location.postalCode + '<br>'  + '<a href="' + req.website + '">' + req.website + '</a>' + '<br>' + '<a href="' + req.twitterLink + '">' + '@' + req.twitter + '</a>';
+                
+                self.gymPlace().push(gymContent);
+            } 
+        });
+            
+
+            
+    });
+    
     //Adds new markers at each location in the initialLocations Array
     self.sortedLocations().forEach(function(location) {
         marker = new google.maps.Marker({
@@ -191,6 +231,8 @@ function ViewModel() {
             });
         //Add click event to each marker to open info window
         info.addListener('click', function() {
+            console.log(info.gymContent);
+            infoWindow.setContent(info.gymContent);
                 infoWindow.open(map, this),
                 info.setAnimation(google.maps.Animation.BOUNCE), //Markers will bounce when clicked
                 setTimeout(function() {
@@ -244,48 +286,6 @@ function ViewModel() {
         map.setZoom(13);
         map.panTo({ lat: 40.440624, lng: -79.995888}); //map center location
         self.query('');
-    });
-    
-    //FourSquare API Request | declare reference properties
-        var clientID = '54I1UHM3AGCPB45VNROLAC23DEARBPZ3R4C0Y5QX3BDL30SV';
-        var clientSecret = 'SCQYO3CFBWVOHBYK4HUMBBXF3VUIF5ETZPD01BXTGBO2YW00';
-        var fqVersion = '20130815';
-        var fourSqUrl;
-        var llLat;
-        var llLng;
-        var gymContent;
-        self.gymPlace = ko.observableArray();
-        
-        //Build correct URL for API request to Foursquare
-        self.sortedLocations().forEach(function(req) {
-            llLat = req.latlng.lat;
-            llLng = req.latlng.lng;
-            fourSqUrl = 'https://api.foursquare.com/v2/venues/explore' + '?client_id=' + clientID + '&client_secret=' + clientSecret + '&v=' + fqVersion + '&ll=' + llLat + ',' + llLng + '&query=' + req.query + '&limit=50';
-            
-            //Make ajax call to Foursquare API to get requested Data
-            $.ajax({
-            url: fourSqUrl,
-            datatype: "jsonp",
-            success: function(response) {
-                var resp = response.response.groups[0].items[0].venue;
-        
-                //Build infoWidow content string with data from API Request
-                    gymContent = resp.name + '<br>' + req.phone + '<br>' + resp.location.address + '<br>' + resp.location.city + ', ' + resp.location.state + ' ' + resp.location.postalCode + '<br>'  + '<a href="' + req.website + '">' + req.website + '</a>' + '<br>' + '<a href="' + req.twitterLink + '">' + '@' + req.twitter + '</a>';
-                
-                self.gymPlace().push(gymContent);
-                
-                self.gymPlace().forEach(function(postRequest) {
-                    infoWindow.setContent(postRequest.gymContent);
-                    
-                });
-                
-                
-                console.log(self.gymPlace());
-            } 
-        });
-            
-
-            
     });
     
      
