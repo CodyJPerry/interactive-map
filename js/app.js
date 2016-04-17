@@ -134,10 +134,6 @@ var infoWindow;
 
 var marker;
 
-
-
-
-
 //Create Instance of a map from the Google maps api
 //Grab the reference to the "map" id to display map
 //Set the map options object properties 
@@ -174,21 +170,19 @@ function ViewModel() {
     
     
     
-    //FourSquare API Request | declare reference properties
+    //FourSquare API Request | Add location parameter to function definition
+    function getFourSquareData(location) {
         var clientID = '54I1UHM3AGCPB45VNROLAC23DEARBPZ3R4C0Y5QX3BDL30SV';
         var clientSecret = 'SCQYO3CFBWVOHBYK4HUMBBXF3VUIF5ETZPD01BXTGBO2YW00';
         var fqVersion = '20130815';
         var fourSqUrl;
         var llLat;
         var llLng;
-        var gymContent;
-        self.gymPlace = ko.observableArray();
         
-        //Build correct URL for API request to Foursquare
-        self.sortedLocations().forEach(function(req) {
-            llLat = req.latlng.lat;
-            llLng = req.latlng.lng;
-            fourSqUrl = 'https://api.foursquare.com/v2/venues/explore' + '?client_id=' + clientID + '&client_secret=' + clientSecret + '&v=' + fqVersion + '&ll=' + llLat + ',' + llLng + '&query=' + req.query + '&limit=50';
+            //Build correct URL for API request to Foursquare
+            llLat = location.latlng.lat;
+            llLng = location.latlng.lng;
+            fourSqUrl = 'https://api.foursquare.com/v2/venues/explore' + '?client_id=' + clientID + '&client_secret=' + clientSecret + '&v=' + fqVersion + '&ll=' + llLat + ',' + llLng + '&query=' + location.query + '&limit=50';
             
             //Make ajax call to Foursquare API to get requested Data
             $.ajax({
@@ -198,15 +192,17 @@ function ViewModel() {
                 var resp = response.response.groups[0].items[0].venue;
         
                 //Build infoWidow content string with data from API Request
-                    gymContent = resp.name + '<br>' + req.phone + '<br>' + resp.location.address + '<br>' + resp.location.city + ', ' + resp.location.state + ' ' + resp.location.postalCode + '<br>'  + '<a href="' + req.website + '">' + req.website + '</a>' + '<br>' + '<a href="' + req.twitterLink + '">' + '@' + req.twitter + '</a>';
+                infoWindow.setContent(resp.name + '<br>' + location.phone + '<br>' + resp.location.address + '<br>' + resp.location.city + ', ' + resp.location.state + ' ' + resp.location.postalCode + '<br>'  + '<a href="' + location.website + '">' + location.website + '</a>' + '<br>' + '<a href="' + location.twitterLink + '">' + '@' + location.twitter + '</a>');
                 
-                self.gymPlace().push(gymContent);
+                infoWindow.open(map, location.marker); //open the info window
+                
             } 
         });
             
 
             
-    });
+    };
+        
     
     //Adds new markers at each location in the initialLocations Array
     self.sortedLocations().forEach(function(location) {
@@ -220,35 +216,32 @@ function ViewModel() {
         
         location.marker = marker;
 
-        //Pushes each marker into the markers array
-        this.markers.push(marker);
-    });
-    
-    //Map info windows to each item in the markers array
-    self.markers.map(function(info) {
-            infoWindow = new google.maps.InfoWindow({
-                content: content
-            });
-        //Add click event to each marker to open info window
-        info.addListener('click', function() {
-            console.log(info.gymContent);
-            infoWindow.setContent(info.gymContent);
-                infoWindow.open(map, this),
-                info.setAnimation(google.maps.Animation.BOUNCE), //Markers will bounce when clicked
-                setTimeout(function() {
-                    info.setAnimation(null)
-                }, 2000); //Change value to null after 2 seconds and stop markers from bouncing
+    // attach event listeners to the map markers
+    marker.addListener('click', function() {
+        getFourSquareData(location); //call function to get foursquare data for this specific location and open infowindow
+        console.log(location.name);
+        if (location.name === true) {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+            setTimeout(function() {
+            location.marker.setAnimation(null);
+        }, 2000); //Change the value to null after 2 seconds to stop markers from bouncing
+        }
+        //marker.setAnimation(google.maps.Animation.BOUNCE); //Markers will trigger bounce animation when clicked
         });
-        
-     });
+    });
+
+    
+    infoWindow = new google.maps.InfoWindow();
+
     
     //Click on item in list view
     self.listViewClick = function(gym) {
+        console.log(gym.name);
        if (this.name) {
            map.setZoom(15); //Zoom map view
            map.panTo(this.latlng); // Pan to correct marker when list view item is clicked
-           gym.marker.setAnimation(google.maps.Animation.BOUNCE); // Bounce marker when list view item is clicked
-           infoWindow.open(map, gym.marker); // Open info window on correct marker when list item is clicked
+           marker.setAnimation(google.maps.Animation.BOUNCE); // Bounce marker when list view item is clicked
+           infoWindow.open(map, marker.marker); // Open info window on correct marker when list item is clicked
            self.query(this.name);
        } 
         setTimeout(function() { 
