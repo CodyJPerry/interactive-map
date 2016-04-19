@@ -196,14 +196,20 @@ function ViewModel() {
                 
                 infoWindow.open(map, location.marker); //open the info window
                 
-            } 
+            },
+            error: function(fourSqUrl) {
+                infoWindow.open(map, location.marker);
+                infoWindow.setContent("I'm sorry, we can not get the data at this time. Please try again later.");
+                console.log("This is not working!");
+            }
         });
             
 
             
     };
-        
     
+    
+        
     //Adds new markers at each location in the initialLocations Array
     self.sortedLocations().forEach(function(location) {
         marker = new google.maps.Marker({
@@ -219,16 +225,14 @@ function ViewModel() {
     // attach event listeners to the map markers
     marker.addListener('click', function() {
         getFourSquareData(location); //call function to get foursquare data for this specific location and open infowindow
-        console.log(location.name);
-        if (location.name === true) {
-            marker.setAnimation(google.maps.Animation.BOUNCE);
-            setTimeout(function() {
-            location.marker.setAnimation(null);
-        }, 2000); //Change the value to null after 2 seconds to stop markers from bouncing
+        if (location.name) {
+            location.marker.setAnimation(google.maps.Animation.BOUNCE);
         }
-        //marker.setAnimation(google.maps.Animation.BOUNCE); //Markers will trigger bounce animation when clicked
-        });
+        setTimeout(function() {
+            location.marker.setAnimation(null);
+        }, 2000);
     });
+});
 
     
     infoWindow = new google.maps.InfoWindow();
@@ -236,18 +240,18 @@ function ViewModel() {
     
     //Click on item in list view
     self.listViewClick = function(gym) {
-        console.log(gym.name);
-       if (this.name) {
-           map.setZoom(15); //Zoom map view
-           map.panTo(this.latlng); // Pan to correct marker when list view item is clicked
-           marker.setAnimation(google.maps.Animation.BOUNCE); // Bounce marker when list view item is clicked
-           infoWindow.open(map, marker.marker); // Open info window on correct marker when list item is clicked
-           self.query(this.name);
-       } 
-        setTimeout(function() { 
-            gym.marker.setAnimation(null); // End animation on marker after 2 seconds
+        google.maps.event.trigger(gym.marker, 'click'); //Associate the marker with the list view item when clicked
+        if (this.name) {
+        map.setZoom(15); //Zoom the map
+        map.panTo(gym.marker.position);
+        gym.marker.setAnimation(google.maps.Animation.BOUNCE); // Cause markers to bounce when clicked
+        self.query(this.name); // Populate the search field with current search name 
+        } 
+        setTimeout(function() {
+          gym.marker.setAnimation(null); // End marker animation after 2 seconds 
         }, 2000);
-    };
+        
+}
     
     // Stores user input
     self.query = ko.observable('');
