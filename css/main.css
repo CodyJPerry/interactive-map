@@ -1,6 +1,8 @@
  #map {
     height: 800px;  
     width: 100%;
+    position: fixed;
+    z-index: 0;
 }
 
 .list-view {
@@ -15,10 +17,21 @@
     font-size: 1.4em;
     font-weight: bold;
     margin: 10px 5px;
+    padding: 0 5px;
 }
 
 .list-view p:hover {
     background: rgba(23,50,78,.7);
     cursor: pointer;
+    padding: 5px;
+}
+
+#search {
+    position: absolute;
+    z-index: 1;
+    top: 10px;
+    height: 30px;
+    width: 323px;
+    
 }
 

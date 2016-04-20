@@ -134,6 +134,7 @@ var infoWindow;
 
 var marker;
 
+
 //Create Instance of a map from the Google maps api
 //Grab the reference to the "map" id to display map
 //Set the map options object properties 
@@ -148,6 +149,8 @@ function initMap() {
         }
     });
 };
+
+
 
 // tells the view model what to do when a change occurs
 function gymLocation(value) {
@@ -170,7 +173,7 @@ function ViewModel() {
     
     
     
-    //FourSquare API Request | Add location parameter to function definition
+    //FourSquare API Request | Add location parameter to function definition | Declare variables to be used in API request
     function getFourSquareData(location) {
         var clientID = '54I1UHM3AGCPB45VNROLAC23DEARBPZ3R4C0Y5QX3BDL30SV';
         var clientSecret = 'SCQYO3CFBWVOHBYK4HUMBBXF3VUIF5ETZPD01BXTGBO2YW00';
@@ -178,6 +181,7 @@ function ViewModel() {
         var fourSqUrl;
         var llLat;
         var llLng;
+        var errorMsg;
         
             //Build correct URL for API request to Foursquare
             llLat = location.latlng.lat;
@@ -196,11 +200,14 @@ function ViewModel() {
                 
                 infoWindow.open(map, location.marker); //open the info window
                 
-            },
-            error: function(fourSqUrl) {
-                infoWindow.open(map, location.marker);
-                infoWindow.setContent("I'm sorry, we can not get the data at this time. Please try again later.");
-                console.log("This is not working!");
+            }, // Error method to be run if request fails
+            error: function(fourSqUrl, errorMsg) {
+                setTimeout(function() { // Display error after 2 seconds if Request to API fails
+                    if (errorMsg) {
+                        infoWindow.setContent("I'm sorry, an error has occurred. Please try again later.");
+                        infoWindow.open(map, location.marker);
+                    }
+                }, 2000);
             }
         });
             
@@ -250,11 +257,13 @@ function ViewModel() {
         setTimeout(function() {
           gym.marker.setAnimation(null); // End marker animation after 2 seconds 
         }, 2000);
-        
+                
 }
+    
     
     // Stores user input
     self.query = ko.observable('');
+    
     
     //Filter through observableArray and filter results using knockouts utils.arrayFilter();
     self.search = ko.computed(function() {
