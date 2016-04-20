@@ -13,5 +13,17 @@ var searchList = [
 
 $("#search").autocomplete({
     autoFocus: true,
-    source: searchList
+    source: searchList,
+    close: function() {
+      initialLocations.forEach(function(match) {
+          map.setZoom(15);
+      });  
+      
+    }
 });
+
+
+
+
+
+

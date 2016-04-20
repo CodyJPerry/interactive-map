@@ -161,6 +161,11 @@ function gymLocation(value) {
 };
 
 
+$("#search").change(function() {
+    console.log("Yes");
+});
+
+
 //ViewModel
 function ViewModel() {
     
@@ -239,6 +244,17 @@ function ViewModel() {
             location.marker.setAnimation(null);
         }, 2000);
     });
+        
+      $("#search").autocomplete({
+        autoFocus: true,
+        source: searchList,
+        close: function() {
+            map.panTo(location.marker.position);
+        }
+        
+      }); 
+        
+              
 });
 
     
