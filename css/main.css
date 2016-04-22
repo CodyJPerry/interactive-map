@@ -1,13 +1,12 @@
  #map {
     height: 800px;  
     width: 100%;
-    position: fixed;
     z-index: 0;
 }
 
 .list-view {
     position: absolute;
-    top: 50px;
+    top: 55px;
     z-index: 1;
     background: rgba(23,50,78,.5);
     color: white;
@@ -29,9 +28,16 @@
 #search {
     position: absolute;
     z-index: 1;
-    top: 10px;
+    top: 15px;
     height: 30px;
     width: 323px;
     
+}
+
+.header {
+    background: #29293d;
+    text-align: center;
+    color: white;
+    padding: 12px 0;
 }
 

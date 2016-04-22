@@ -160,12 +160,6 @@ function gymLocation(value) {
     this.latlng = ko.observable(value.latlng);
 };
 
-
-$("#search").change(function() {
-    console.log("Yes");
-});
-
-
 //ViewModel
 function ViewModel() {
     
@@ -202,6 +196,8 @@ function ViewModel() {
         
                 //Build infoWidow content string with data from API Request
                 infoWindow.setContent(resp.name + '<br>' + location.phone + '<br>' + resp.location.address + '<br>' + resp.location.city + ', ' + resp.location.state + ' ' + resp.location.postalCode + '<br>'  + '<a href="' + location.website + '">' + location.website + '</a>' + '<br>' + '<a href="' + location.twitterLink + '">' + '@' + location.twitter + '</a>');
+                
+                
                 
                 infoWindow.open(map, location.marker); //open the info window
                 
@@ -244,17 +240,7 @@ function ViewModel() {
             location.marker.setAnimation(null);
         }, 2000);
     });
-        
-      $("#search").autocomplete({
-        autoFocus: true,
-        source: searchList,
-        close: function() {
-            map.panTo(location.marker.position);
-        }
-        
-      }); 
-        
-              
+                      
 });
 
     
@@ -276,11 +262,26 @@ function ViewModel() {
                 
 }
     
-    
     // Stores user input
     self.query = ko.observable('');
     
+    //Store reference to search id
+    var search = $("#search");
     
+    //When enter is pressed, if names match preform actions in function
+    search.change(function() {
+        initialLocations.forEach(function(gym) {
+            if (gym.name.toLowerCase() === search.val().toLowerCase()) {
+                map.panTo(gym.latlng);
+                gym.marker.setAnimation(google.maps.Animation.BOUNCE);
+                setTimeout(function() {
+                    gym.marker.setAnimation(google.maps.Animation.BOUNCe);
+                }, 2000);
+                map.setZoom(15);
+            }
+        });
+    });
+       
     //Filter through observableArray and filter results using knockouts utils.arrayFilter();
     self.search = ko.computed(function() {
         return ko.utils.arrayFilter(self.sortedLocations(), function(listResult) {
