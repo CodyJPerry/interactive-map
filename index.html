@@ -12,9 +12,23 @@
     <meta charset="utf-8">
     </head>
     <body>
+        <div class="header"><h3>Welcome! Search Gym Location's in Pittsburgh!</h3></div>
         <div class="container">
             <div class="col-md-12">
-                <input type="search" placeholder="Search Location" size="35" data-bind="textInput: query, valueUpdate: 'keyup'"/></div>
+                <input list="autoComplete" id="search" type="search" placeholder="Search Location" size="35" autocomplete="on" data-bind="textInput: query, valueUpdate: 'keyup'"/>
+                <datalist id="autoComplete"> <!--Use datalist element as auto complete menu-->
+                    <option>Fitness Factory</option>
+                    <option>MÜV Integrated Physical Culture</option>
+                    <option>PNC YMCA</option>
+                    <option>X Shadyside</option>
+                    <option>Orangetheory Fitness</option>
+                    <option>Shape Training</option>
+                    <option>Gold’s Gym</option>
+                    <option>Panthro Fitness</option>
+                    <option>terraFITNESS</option>
+                    <option>The Greentree Sportsplex</option>
+                </datalist>
+            </div>
             <div class="col-md-4">
             <!--list view-->
                 <div class="list-view" data-bind="foreach: search">
@@ -22,7 +36,8 @@
                 </div>   
             </div>
         </div>
-        <div id="map" class="col-md-8"></div>
+        <div id="map" class="col-md-12 col-sm-12 col-xs-12">
+        </div>
         <script src="js/app.js"></script>
         <script>initMap();</script>
     </body>

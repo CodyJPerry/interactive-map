@@ -1,11 +1,12 @@
  #map {
     height: 800px;  
     width: 100%;
+    z-index: 0;
 }
 
 .list-view {
     position: absolute;
-    top: 50px;
+    top: 55px;
     z-index: 1;
     background: rgba(23,50,78,.5);
     color: white;
@@ -15,10 +16,28 @@
     font-size: 1.4em;
     font-weight: bold;
     margin: 10px 5px;
+    padding: 0 5px;
 }
 
 .list-view p:hover {
     background: rgba(23,50,78,.7);
     cursor: pointer;
+    padding: 5px;
+}
+
+#search {
+    position: absolute;
+    z-index: 1;
+    top: 15px;
+    height: 30px;
+    width: 323px;
+    
+}
+
+.header {
+    background: #29293d;
+    text-align: center;
+    color: white;
+    padding: 12px 0;
 }
 
