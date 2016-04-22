@@ -244,7 +244,7 @@ function ViewModel() {
 });
 
     
-    infoWindow = new google.maps.InfoWindow();
+  infoWindow = new google.maps.InfoWindow();
 
     
     //Click on item in list view
@@ -273,9 +273,9 @@ function ViewModel() {
         initialLocations.forEach(function(gym) {
             if (gym.name.toLowerCase() === search.val().toLowerCase()) {
                 map.panTo(gym.latlng);
-                gym.marker.setAnimation(google.maps.Animation.BOUNCE);
+                //gym.marker.setAnimation(google.maps.Animation.BOUNCE);
                 setTimeout(function() {
-                    gym.marker.setAnimation(google.maps.Animation.BOUNCe);
+                    gym.marker.setAnimation(null);
                 }, 2000);
                 map.setZoom(15);
             }
