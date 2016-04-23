@@ -272,7 +272,9 @@ function ViewModel() {
                 var search = $("#search");
     
     //When enter is pressed, if names match preform actions in function
-            search.change(getFourSquareData());
+            search.change(function() {
+               getFourSquareData(); 
+            });
         
     
        
