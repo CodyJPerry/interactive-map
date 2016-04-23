@@ -196,25 +196,7 @@ function ViewModel() {
             success: function(response) {
                 resp = response.response.groups[0].items[0].venue;
                 
-                 //Store reference to search id
-                var search = $("#search");
     
-                //When enter is pressed, if names match preform actions in function
-                search.change(function() {
-                    initialLocations.forEach(function(gym) {
-                        if (gym.name.toLowerCase() === search.val().toLowerCase()) {
-                            map.panTo(gym.latlng);
-                            map.setZoom(15);
-                            gym.marker.setAnimation(google.maps.Animation.BOUNCE);
-                            setTimeout(function() {
-                               gym.marker.setAnimation(null); 
-                            }, 2000);
-                            infoWindow.setContent(gym.name + '<br>' + gym.phone + '<br>' + resp.location.address + '<br>' + resp.location.city + ', ' + resp.location.state + ' ' + resp.location.postalCode + '<br>'  + '<a href="' + location.website + '">' + gym.website + '</a>' + '<br>' + '<a href="' + gym.twitterLink + '">' + '@' + gym.twitter + '</a>');
-                            infoWindow.open(map, gym.marker);
-                        }
-                    });
-                });
-        
                 //Build infoWidow content string with data from API Request
                 infoWindow.setContent(resp.name + '<br>' + location.phone + '<br>' + resp.location.address + '<br>' + resp.location.city + ', ' + resp.location.state + ' ' + resp.location.postalCode + '<br>'  + '<a href="' + location.website + '">' + location.website + '</a>' + '<br>' + '<a href="' + location.twitterLink + '">' + '@' + location.twitter + '</a>');
                 
@@ -286,6 +268,13 @@ function ViewModel() {
     // Stores user input
     self.query = ko.observable('');
     
+        //Store reference to search id
+                var search = $("#search");
+    
+    //When enter is pressed, if names match preform actions in function
+            search.change(getFourSquareData());
+        
+    
        
     //Filter through observableArray and filter results using knockouts utils.arrayFilter();
     self.search = ko.computed(function() {
@@ -321,6 +310,7 @@ function ViewModel() {
     
 
 $(document).ready(function() {
+    initMap();
     ko.applyBindings(ViewModel());
 });
    
