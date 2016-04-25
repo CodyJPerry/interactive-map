@@ -1,12 +1,19 @@
- #map {
-    height: 800px;  
+body, html, #map {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+} 
+
+#map { 
     width: 100%;
     z-index: 0;
 }
 
 .list-view {
     position: absolute;
-    top: 55px;
+    left: -149px;
+    top: 85px;
     z-index: 1;
     background: rgba(23,50,78,.5);
     color: white;
@@ -28,9 +35,10 @@
 #search {
     position: absolute;
     z-index: 1;
-    top: 15px;
+    left: -133px;
+    top: 50px;
     height: 30px;
-    width: 323px;
+    width: 321px;
     
 }
 
@@ -39,6 +47,7 @@
     text-align: center;
     color: white;
     padding: 12px 0;
+    width: 100%;
 }
 
 h3 {
@@ -46,3 +55,17 @@ h3 {
     font-weight: 700;
 }
 
+i {
+    position: absolute;
+    top: 22px;
+    left: 15px;
+    margin-right: 20px;
+}
+
+.showlist {
+    display: none;
+}
+
+.nav-button {
+    margin-right: 20px;
+}
