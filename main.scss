@@ -28,7 +28,7 @@ body, html, #map {
     background: rgba(23,50,78,.7);
     cursor: pointer;
     padding: 5px;
-}*/
+}
 
 #search {
     position: absolute;
@@ -38,7 +38,7 @@ body, html, #map {
     height: 30px;
     width: 321px;
     
-}
+} */
 
 .header {
     background: #29293d;
@@ -69,23 +69,21 @@ i {
     
 }
 
-.slide-menu {
-    width: 0;
-    overflow: hidden;
+.sidebar {
+    left:0;
+    top:50px;
+    width:200px;
     position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
+    overflow-y:scroll;
+    height: calc( 100vh - 50px);
+    background-color: #aabbcc;
+    -webkit-transition: .5s;
+    transition: .5s;
 }
 
-
-.page-wrap {
-    width: 100%;
-    float: right;
-}
-
-#simple-menu:target {
-    
+.sidebar.slide-out {
+    -webkit-transform: translate3d( -175px ,0,0);
+    transform: translate3d( -175px ,0,0); 
 }
 
 

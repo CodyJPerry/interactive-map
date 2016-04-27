@@ -303,6 +303,7 @@ function ViewModel() {
         map.setZoom(13);
     });
     
+    var bounds = new google.maps.LatLngBounds({ lat: 40.420392, lng: -80.058305 },  { lat: 40.458458, lng: -79.925130 });
     
     //Click event on map to zoom out to original poistion
     map.addListener('click', function(event) {
@@ -311,15 +312,19 @@ function ViewModel() {
         map.setZoom(13);
         map.panTo({ lat: 40.440624, lng: -79.995888}); //map center location
         self.query('');
+        map.fitBounds(bounds);
     });
     
-    var bounds = new google.maps.LatLngBounds();
     
    google.maps.event.addDomListener(window, 'resize', function() {
-       console.log('Yes');
        map.setCenter({lat: 40.440624, lng: -79.995888});
        map.fitBounds(bounds);
    });
+    
+  google.maps.event.addDomListener(window, 'load', function() {
+      map.setCenter({lat: 40.440624, lng: -79.995888});
+      map.fitBounds(bounds);
+  });
     
 };
 
