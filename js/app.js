@@ -276,6 +276,7 @@ function ViewModel() {
                        }, 2000);
                        infoWindow.setContent(gym.name + '<br>' + gym.phone + '<br>' + gym.address + '<br>' + gym.cityZip + '<br>' + gym.description + '<br>' + '<a href="' + gym.website + '">' + gym.website + '</a>' + '<br>' + '<a href="' + gym.twitterLink + '">' + '@' + gym.twitter + '</a>');
                        infoWindow.open(map, gym.marker)
+                       $('.sidebar').hide();
                    } 
                 });
                 
