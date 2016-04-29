@@ -251,6 +251,7 @@ function ViewModel() {
         map.panTo(gym.marker.position);
         gym.marker.setAnimation(google.maps.Animation.BOUNCE); // Cause markers to bounce when clicked
         self.query(this.name); // Populate the search field with current search name 
+        $('.sidebar').toggleClass('slide-out'); //Hide sidebar if true and class is already toggled on
         } 
         setTimeout(function() {
           gym.marker.setAnimation(null); // End marker animation after 2 seconds 
@@ -276,7 +277,7 @@ function ViewModel() {
                        }, 2000);
                        infoWindow.setContent(gym.name + '<br>' + gym.phone + '<br>' + gym.address + '<br>' + gym.cityZip + '<br>' + gym.description + '<br>' + '<a href="' + gym.website + '">' + gym.website + '</a>' + '<br>' + '<a href="' + gym.twitterLink + '">' + '@' + gym.twitter + '</a>');
                        infoWindow.open(map, gym.marker)
-                       $('.sidebar').hide();
+                       $('.sidebar').toggleClass('slide-out'); //Hide sidebar if true and class is already toggled on
                    } 
                 });
                 

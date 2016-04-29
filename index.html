@@ -13,14 +13,14 @@
     <meta charset="utf-8">
     </head>
     <body>
+        <!-- Header -->
         <div class="header col-md-12 col-sm-12"> 
             <div class="nav-button">
                 <i id="sidebar-button" class="fa fa-bars fa-3x" aria-hidden="true"></i>
             </div>
-            <h3>Welcome! Search Gym Location's in Pittsburgh!</h3>
+            <h3>Search Gym Location's!</h3>
         </div>
-        <div class="container">
-            <div class="sidebar">
+            <div class="sidebar slide-out">
                 <section class="col-md-12 showlist">
                     <input list="autoComplete" id="search" type="search" placeholder="Search Location" size="35" autocomplete="on" data-bind="textInput: query, valueUpdate: 'keyup'"/>
                     <datalist id="autoComplete"> <!--Use datalist element as auto complete menu-->
@@ -41,7 +41,6 @@
                     </div>   
                 </section>
             </div>
-        </div>
             <div id="map" class="col-md-12 col-sm-12 col-xs-12"></div>
         <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSCtZpkBsbNMncEsqtkBAAHWEtX8HWr8Q&callback=initMap"></script>
         <script src="js/app.js"></script>
