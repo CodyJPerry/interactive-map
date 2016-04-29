@@ -343,9 +343,9 @@ function initMap() {
         mapTypeControlOptions: {
             style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
         }
-    });
+});
     
-    
+    //Apply viewmodel via knockout
     ko.applyBindings(ViewModel());
 };
 
