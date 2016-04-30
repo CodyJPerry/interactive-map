@@ -324,9 +324,17 @@ function ViewModel() {
       map.setCenter({lat: 40.440624, lng: -79.995888});
       map.fitBounds(bounds);
   });
-    
+
 };
 
+//Replace heading text if script fails to load, and trigger the mapError function
+function mapError() {
+    if (typeof google === 'undefined') {
+        var heading = document.getElementById('heading-text');
+        heading.textContent = "I'm sorry, this page could not be loaded.";
+        } 
+        
+}
 
 //Create Instance of a map from the Google maps api
 //Grab the reference to the "map" id to display map
@@ -345,6 +353,8 @@ function initMap() {
     //Apply viewmodel via knockout
     ko.applyBindings(ViewModel());
 };
+
+
 
     
    
