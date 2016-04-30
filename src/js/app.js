@@ -188,14 +188,10 @@ function ViewModel() {
             datatype: "jsonp",
             success: function(response) {
                 resp = response.response.groups[0].items[0].venue;
-                
-    
                 //Build infoWidow content string with data from API Request
-                infoWindow.setContent(resp.name + '<br>' + location.phone + '<br>' + resp.location.address + '<br>' + resp.location.city + ', ' + resp.location.state + ' ' + resp.location.postalCode + '<br>'  + '<a href="' + location.website + '">' + location.website + '</a>' + '<br>' + '<a href="' + location.twitterLink + '">' + '@' + location.twitter + '</a>');
+                infoWindow.setContent(resp.name + '<br>' + location.phone + '<br>' + location.address + '<br>' + resp.location.city + ', ' + resp.location.state + ' ' + resp.location.postalCode + '<br>'  + '<a href="' + location.website + '">' + location.website + '</a>' + '<br>' + '<a href="' + location.twitterLink + '">' + '@' + location.twitter + '</a>');
                 
                 infoWindow.open(map, location.marker); //open the info window
-                
-                
             }, // Error method to be run if request fails
             error: function(fourSqUrl, errorMsg) {
                 setTimeout(function() { // Display error after 2 seconds if Request to API fails
@@ -205,6 +201,7 @@ function ViewModel() {
                     }
                 }, 2000);
             }
+            
         });
         
         
