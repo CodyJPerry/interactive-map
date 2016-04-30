@@ -9,6 +9,9 @@
 
   - Click on Gym markers or one of 10 gym names from the list view
   - Search for a gym name and use auto complete to help you find the correct name
+  
+  
+####API 3rd party data provided by (https://foursquare.com/)
 
 
 

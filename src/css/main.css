@@ -83,6 +83,18 @@ i {
     transform: translate3d( -375px ,0,0); 
 }
 
+#fq-attribution {
+   color: white;
+   margin-left: 65px;
+}
+
+a:hover {
+    color: lightblue;
+    text-decoration: none;
+}
+
+
+
 @media screen and (max-width: 700px) {
     h3 {
         font-size: 1em;
