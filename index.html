@@ -1,1 +1,49 @@
-<!DOCTYPE html><html> <head> <title>Find a Gym</title> <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script> <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"> <link href='https://fonts.googleapis.com/css?family=Bitter:700&subset=latin,latin-ext' rel='stylesheet' type='text/css'> <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"> <link rel="stylesheet" href="dist/main.min.css"> <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script> <meta name="viewport" content="initial-scale=1.0"> <meta charset="utf-8"> </head> <body> <div class="header col-md-12 col-sm-12"> <div class="nav-button"> <i id="sidebar-button" class="fa fa-bars fa-3x" aria-hidden="true"></i> </div><h3>Search Gym Location's!</h3> </div><div class="sidebar slide-out"> <section class="col-md-12 showlist"> <input list="autoComplete" id="search" type="search" placeholder="Search Location" size="35" autocomplete="on" data-bind="textInput: query, valueUpdate: 'keyup'"/> <datalist id="autoComplete"> <option>Fitness Factory</option> <option>MÜV Integrated Physical Culture</option> <option>PNC YMCA</option> <option>X Shadyside</option> <option>Orangetheory Fitness</option> <option>Shape Training</option> <option>Gold’s Gym</option> <option>Panthro Fitness</option> <option>terraFITNESS</option> <option>The Greentree Sportsplex</option> </datalist> <div class="list-view" data-bind="foreach: search"> <p class="list-item" data-bind="text: $data.name, click: listViewClick"></p></div></section> </div><div id="map" class="col-md-12 col-sm-12 col-xs-12"></div><script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSCtZpkBsbNMncEsqtkBAAHWEtX8HWr8Q&callback=initMap"></script> <script src="dist/js/app.min.js"></script> <script src="dist/js/sidebar.min.js"></script> </body></html>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Find a Gym</title>
+        <!-- Latest compiled and minified CSS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <link href='https://fonts.googleapis.com/css?family=Bitter:700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+        <link rel="stylesheet" href="dist/main.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+        <meta name="viewport" content="initial-scale=1.0">
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <!-- Header -->
+        <div class="header col-md-12 col-sm-12"> 
+            <div class="nav-button">
+                <i id="sidebar-button" class="fa fa-bars fa-3x" aria-hidden="true"></i>
+            </div>
+            <h3>Search Gym Location's!</h3>
+        </div>
+            <div class="sidebar slide-out">
+                <section class="col-md-12 showlist">
+                    <input list="autoComplete" id="search" type="search" placeholder="Search Location" size="35" autocomplete="on" data-bind="textInput: query, valueUpdate: 'keyup'"/>
+                    <datalist id="autoComplete"> <!--Use datalist element as auto complete menu-->
+                        <option>Fitness Factory</option>
+                        <option>MÜV Integrated Physical Culture</option>
+                        <option>PNC YMCA</option>
+                        <option>X Shadyside</option>
+                        <option>Orangetheory Fitness</option>
+                        <option>Shape Training</option>
+                        <option>Gold’s Gym</option>
+                        <option>Panthro Fitness</option>
+                        <option>terraFITNESS</option>
+                        <option>The Greentree Sportsplex</option>
+                    </datalist>
+                <!--list view-->
+                    <div class="list-view" data-bind="foreach: search">
+                        <p class="list-item" data-bind="text: $data.name, click: listViewClick"></p>
+                    </div>   
+                </section>
+            </div>
+            <div id="map" class="col-md-12 col-sm-12 col-xs-12"></div>
+        <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSCtZpkBsbNMncEsqtkBAAHWEtX8HWr8Q&callback=initMap"></script>
+        <script src="dist/js/app.min.js"></script>
+        <script src="dist/js/sidebar.min.js"></script>
+    </body>
+</html>
