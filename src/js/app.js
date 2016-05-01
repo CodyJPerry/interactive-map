@@ -11,7 +11,8 @@ var initialLocations = [
         phone: "(412) 362-6303",
         twitter: "FitFactoryPGH",
         twitterLink: "https://twitter.com/FitFactoryPGH?lang=en",
-        query: "FitnessFactory"
+        query: "FitnessFactory",
+        fourSqUrl: "https://foursquare.com/fitfactorypgh"
     },
     {
         name: "MÜV Integrated Physical Culture",
@@ -24,7 +25,8 @@ var initialLocations = [
         phone: "(412) 477-5069",
         twitter: "muvintegrated",
         twitterLink: "https://twitter.com/muvintegrated?lang=en",
-        query: "MUV"
+        query: "MUV",
+        fourSqUrl: "https://foursquare.com/v/muv-integrated-physical-culture/5362e039498ef8ea0e056975"
     },
     {
         name: "PNC YMCA",
@@ -37,7 +39,9 @@ var initialLocations = [
         phone: "(412) 471-9622",
         twitter: "PNCYMCA",
         twitterLink: "https://twitter.com/PNCYMCA?lang=en",
-        query: "PNCYMCA"
+        query: "PNCYMCA",
+        fourSqUrl: "https://foursquare.com/v/pnc-ymca/4baa8586f964a52030713ae3"
+        
     },
     {
         name: "X Shadyside",
@@ -50,7 +54,8 @@ var initialLocations = [
         phone: "(412) 363-9999",
         twitter: "XShadyside",
         twitterLink: "https://twitter.com/XShadyside?lang=en",
-        query: "XShadyside"
+        query: "XShadyside",
+        fourSqUrl: "https://foursquare.com/v/x-shadyside/4b05eb94f964a520d3e522e3"
     },
     {
         name: "Orangetheory Fitness",
@@ -63,7 +68,8 @@ var initialLocations = [
         phone: "(412) 362-3616",
         twitter: "OrangeTheoryGVR",
         twitterLink: "https://twitter.com/OrangeTheoryGVR?lang=en",
-        query: "OrangetheoryFitness"
+        query: "OrangetheoryFitness",
+        fourSqUrl: "https://foursquare.com/v/orangetheory-fitness/55802dfd498e635852d13303"
     },
     {
         name: "Shape Training",
@@ -76,7 +82,8 @@ var initialLocations = [
         phone: "(412) 996-5016",
         twitter: "Shapetrain412",
         twitterLink: "https://twitter.com/Shapetrain412?lang=en",
-        query: "ShapeTraining"
+        query: "ShapeTraining",
+        fourSqUrl: "https://foursquare.com/v/shape-training/56deb9dccd1027669c970a96"
     },
     {
         name: "Gold’s Gym",
@@ -89,7 +96,8 @@ var initialLocations = [
         phone: "(412) 201-4653",
         twitter: "GoldsGym",
         twitterLink: "https://twitter.com/GoldsGym?lang=en",
-        query: "GoldsGym"
+        query: "GoldsGym",
+        fourSqUrl: "https://foursquare.com/v/golds-gym/4adcc5c3f964a520a42f21e3"
     },
     {
         name: "Panthro Fitness",
@@ -102,7 +110,8 @@ var initialLocations = [
         phone: "(412) 391-0100",
         twitter: "PanthroFitness",
         twitterLink: "https://twitter.com/PanthroFitness?lang=en",
-        query: "PanthroFitness"
+        query: "PanthroFitness",
+        fourSqUrl: "https://foursquare.com/v/panthro-fitness/51852ab6498e26796c2d9395"
         
     },
     {
@@ -116,7 +125,8 @@ var initialLocations = [
        phone: "(412) 901-3645",
        twitter: "terra_fitness",
        twitterLink: "https://twitter.com/terra_fitness/with_replies?lang=en",
-       query: "terraFITNESS"
+       query: "terraFITNESS",
+       fourSqUrl: "https://foursquare.com/v/terrafitness/5263d02e11d2aab0b8bd208a"
     },
     {
         name: "The Greentree Sportsplex",
@@ -129,7 +139,8 @@ var initialLocations = [
         phone: "(412) 922-1818",
         twitter: "TheSportsPlex",
         twitterLink: "https://twitter.com/TheSportsPlex?lang=en",
-        query: "Sportsplex"
+        query: "Sportsplex",
+        fourSqUrl: "https://foursquare.com/v/greentree-sportsplex/4b01a290f964a5201d4422e3"
     }
     
 ];
@@ -151,7 +162,7 @@ function gymLocation(value) {
     this.address = ko.observable(value.address);
     this.description = ko.observable(value.description);
     this.latlng = ko.observable(value.latlng);
-};
+}
 
 //ViewModel
 function ViewModel() {
@@ -188,8 +199,9 @@ function ViewModel() {
             datatype: "jsonp",
             success: function(response) {
                 resp = response.response.groups[0].items[0].venue;
+                console.log(resp);
                 //Build infoWidow content string with data from API Request
-                infoWindow.setContent(resp.name + '<br>' + location.phone + '<br>' + location.address + '<br>' + resp.location.city + ', ' + resp.location.state + ' ' + resp.location.postalCode + '<br>'  + '<a href="' + location.website + '">' + location.website + '</a>' + '<br>' + '<a href="' + location.twitterLink + '">' + '@' + location.twitter + '</a>');
+                infoWindow.setContent('<a href="' + location.fourSqUrl + '">' + resp.name + '</a>' + '<br>' + location.phone + '<br>' + location.address + '<br>' + resp.location.city + ', ' + resp.location.state + ' ' + resp.location.postalCode + '<br>'  + '<a href="' + location.website + '">' + location.website + '</a>' + '<br>' + '<a href="' + location.twitterLink + '">' + '@' + location.twitter + '</a>');
                 
                 infoWindow.open(map, location.marker); //open the info window
             }, // Error method to be run if request fails
@@ -207,7 +219,7 @@ function ViewModel() {
         
         
             
-    };
+    }
     
     
         
@@ -244,16 +256,15 @@ function ViewModel() {
     self.listViewClick = function(gym) {
         google.maps.event.trigger(gym.marker, 'click'); //Associate the marker with the list view item when clicked
         if (this.name) {
-        map.setZoom(15); //Zoom the map
-        map.panTo(gym.marker.position);
-        gym.marker.setAnimation(google.maps.Animation.BOUNCE); // Cause markers to bounce when clicked
-        self.query(this.name); // Populate the search field with current search name 
-        $('.sidebar').toggleClass('slide-out'); //Hide sidebar if true and class is already toggled on
-        } 
-        setTimeout(function() {
-          gym.marker.setAnimation(null); // End marker animation after 2 seconds 
-        }, 2000);
-                
+            map.setZoom(15); //Zoom the map
+            map.panTo(gym.marker.position);
+            gym.marker.setAnimation(google.maps.Animation.BOUNCE); // Cause markers to bounce when clicked
+            $('.sidebar').toggleClass('slide-out'); //Hide sidebar if true and class is already toggled on
+            } 
+            setTimeout(function() {
+              gym.marker.setAnimation(null); // End marker animation after 2 seconds 
+            }, 2000);
+
 }
     
     // Stores user input
@@ -272,7 +283,7 @@ function ViewModel() {
                        setTimeout(function() {
                            gym.marker.setAnimation(null);
                        }, 2000);
-                       infoWindow.setContent(gym.name + '<br>' + gym.phone + '<br>' + gym.address + '<br>' + gym.cityZip + '<br>' + gym.description + '<br>' + '<a href="' + gym.website + '">' + gym.website + '</a>' + '<br>' + '<a href="' + gym.twitterLink + '">' + '@' + gym.twitter + '</a>');
+                       infoWindow.setContent('<a href="' + gym.fourSqUrl + '">' + gym.name + '</a>' + '<br>' + gym.phone + '<br>' + gym.address + '<br>' + gym.cityZip + '<br>' + gym.description + '<br>' + '<a href="' + gym.website + '">' + gym.website + '</a>' + '<br>' + '<a href="' + gym.twitterLink + '">' + '@' + gym.twitter + '</a>');
                        infoWindow.open(map, gym.marker)
                        $('.sidebar').toggleClass('slide-out'); //Hide sidebar if true and class is already toggled on
                    } 
