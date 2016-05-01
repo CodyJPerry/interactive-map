@@ -200,8 +200,8 @@ function ViewModel() {
             success: function(response) {
                 resp = response.response.groups[0].items[0].venue;
                 console.log(resp);
-                //Build infoWidow content string with data from API Request
-                infoWindow.setContent('<a href="' + location.fourSqUrl + '">' + resp.name + '</a>' + '<br>' + location.phone + '<br>' + location.address + '<br>' + resp.location.city + ', ' + resp.location.state + ' ' + resp.location.postalCode + '<br>'  + '<a href="' + location.website + '">' + location.website + '</a>' + '<br>' + '<a href="' + location.twitterLink + '">' + '@' + location.twitter + '</a>');
+                //Build infoWindow content string with data from API Request
+                infoWindow.setContent('<a href="' + location.fourSqUrl + '">' + resp.name + '</a>' + '<br>' + location.phone + '<br>' + location.address + '<br>' + resp.location.city + ', ' + resp.location.state + ' ' + resp.location.postalCode + '<br>' + location.description + '<br>'  + '<a href="' + location.website + '">' + location.website + '</a>' + '<br>' + '<a href="' + location.twitterLink + '">' + '@' + location.twitter + '</a>');
                 
                 infoWindow.open(map, location.marker); //open the info window
             }, // Error method to be run if request fails
