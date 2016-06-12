@@ -229,7 +229,7 @@ function ViewModel() {
             position: location.latlng,
             map: map,
             title: location.name,
-            icon: 'images/gym.svg',
+            icon: 'images/gym.png',
             animation: google.maps.Animation.DROP
         });
         
